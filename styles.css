@@ -65,6 +65,7 @@ li:hover {
 .plant {
     display: flex;
     align-items: end;
+    font-size: xx-small;
     justify-content: center;
 }
 

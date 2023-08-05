@@ -1,19 +1,25 @@
-//info
+//consts
 const infoText = document.querySelector("#info-text");
 const infoButton = document.querySelector("#info");
+const navLeft = document.querySelector("#left");
+const navRight = document.querySelector("#right");
+const navUp = document.querySelector("#up");
+const navDown = document.querySelector("#down");
+const plants = document.querySelectorAll(".plant");
+const water = document.querySelector("#water");
+const fertilizer = document.querySelector("#fertilizer");
+const heal = document.querySelector("#heal");
+const cut = document.querySelector("#cut");
 
+//info
 infoButton.addEventListener("click", () => 
 {
     infoText.classList.toggle("hidden");
 });
 
 //navigation
-const navLeft = document.querySelector("#left");
-const navRight = document.querySelector("#right");
-const navUp = document.querySelector("#up");
-const navDown = document.querySelector("#down");
-const plants = document.querySelectorAll(".plant");
 let currentPlant = 1;
+let selectedPlant = document.querySelectorAll(".selected")[0];
 
 function changePlant(plantNum) {
     if (plantNum < 1 || plantNum > plants.length) {
@@ -25,6 +31,7 @@ function changePlant(plantNum) {
   
     clear.classList.remove("selected");
     plant.classList.add("selected");
+    selectedPlant = plant;
 }
 
 navRight.addEventListener("click", () => {
@@ -49,10 +56,42 @@ navLeft.addEventListener("click", () => {
     currentPlant = newPlant;
 });
 
-//add new plant
-
 //water
+function changeSize(size) {
+  let sizes = ["x-small", "small", "medium", "large", "x-large", "xx-large"];
 
+  selectedPlant.style.fontSize = sizes[size];
+/*  switch(size) {
+    case 1:
+      selectedPlant.style.fontSize = "small";
+      break;
+    case 2:
+      selectedPlant.style.fontSize = "medium";
+      break;
+    case 3:
+      selectedPlant.style.fontSize = "large";
+      break;
+    case 4:
+      selectedPlant.style.fontSize = "x-large";
+      break;
+    case 5:
+      selectedPlant.style.fontSize = "xx-large";
+      break;
+  }*/
+}
+
+let currentSize = 0
+
+water.addEventListener("click", () => {
+  let newSize = currentSize+1;
+
+  if (newSize > 5) {
+    selectedPlant.innerHTML="💀";
+  }
+
+  changeSize(newSize);
+  currentSize = newSize;
+});
 //fertilizer
 
 //heal
