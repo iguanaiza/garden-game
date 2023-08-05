@@ -1,0 +1,73 @@
+:root {
+    --button-main-color: aqua;
+    --button-main-color-hover: rgb(9, 175, 175);
+    --grid-cell-main-color: rgb(104, 93, 62);
+    --grid-cell-main-color-hover: rgb(168, 153, 35);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: rgb(136, 112, 102);
+}
+
+h1 {
+    text-align: center;
+}
+
+.hidden {
+    display: none;
+}
+
+/* menu */
+ul {
+    list-style-type: none;
+    text-align: center;
+}
+
+li {
+    background-color: var(--button-main-color);
+    display: inline-block;
+    margin: 5px;
+    padding: 5px;
+    width: 50px;
+}
+
+li:hover {
+    background-color: var(--button-main-color-hover);
+    cursor: pointer;
+}
+
+.emoji {
+    font-size: 20px;
+}
+
+.plus {
+    font-size: 15px;
+}
+
+#info-text {
+    padding: 5px 20px;
+}
+
+/* garden */
+#garden {
+    background-color: var(--grid-cell-main-color);
+    display: grid;
+    grid-template-columns: repeat(10, minmax(60px, 1fr));
+    grid-template-rows: repeat(10, minmax(60px, 1fr));
+    gap: 5;
+}
+
+.plant {
+    display: flex;
+    align-items: end;
+    justify-content: center;
+}
+
+.selected {
+    background-color: var(--grid-cell-main-color-hover);
+}
