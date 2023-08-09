@@ -14,6 +14,7 @@ let plantsStorage = [plant1]; //array with all plants objects - 1st flower is al
 let selectedPlant = plantsStorage[0]; //by deafult 1st plant is selected
 let newID = 2; //starting new IDs from 2
 let currentPlant = 0; //current plant is 0 in array
+console.log(plant1);
 //-----------------------------------------------------------
 
 //=============INFO ABOUT GAME - UNHIDE/HIDE ON CLICK========
@@ -62,17 +63,21 @@ navLeft.addEventListener("click", () => {
 
 //=============WATERING THE PLANT============================
 function waterPlant() {
-  let newSize = selectedPlant.size + 0.5; //new size value - 0,5 bigger than default
+  let newSize = selectedPlant.size; //new size value - default
   let plantID = document.getElementById(selectedPlant.id); //ID of selected plant
 
-  if (newSize <= 3) { //max size is 3rem which is 5 waters
+  if (newSize <= 2.5) { //max size is 3rem which is 5 waters
     plantID.style = `font-size: ${selectedPlant.size}rem`;
     selectedPlant.size = selectedPlant.size + 0.5;
-    currentSize = newSize;
+    //currentSize = newSize;
+    console.log(plantID);
+    console.log(newSize);
   }
 
-  else if (newSize > 3) {//if overwatered then it dies
+  else if (newSize > 2.5) {//if overwatered then it dies
     plantID.innerHTML="💀"; //reassigns flower icon to skull
+    console.log(plantID);
+    console.log(newSize);
   }
 
   else return;
@@ -100,6 +105,28 @@ function fertPlant() {
 }
 
 fertilizer.addEventListener("click", fertPlant);//action on fertilizer button click
-//heal
+//-----------------------------------------------------------
+
+//=============HEAL-------===================================
+function healPlant() {
+  let plantID = document.getElementById(selectedPlant.id); //ID of selected plant
+  let size = selectedPlant.size;
+
+  console.log(plantID);
+  console.log(size);
+
+  if (size > 2.5) {//if overwatered then it dies
+    selectedPlant.size = 1;
+    plantID.style = `font-size: 0.5rem`;
+    plantID.innerHTML="🌷"; //reassigns skull icon to flower
+
+    console.log(plantID);
+    console.log(size);
+  }
+
+  else return;
+}
+
+heal.addEventListener("click", healPlant); //action on water button click
 
 //cut
