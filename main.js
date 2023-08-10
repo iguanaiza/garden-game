@@ -8,13 +8,13 @@ const water = document.querySelector("#water"); //button with drop - to water th
 const fertilizer = document.querySelector("#fertilizer"); //green button - to fertilize the plant
 const heal = document.querySelector("#heal"); //button with ambulance - to heal the plant
 const cut = document.querySelector("#cut"); //button with axe - to cut the plant
-const plant1 = {id: "plant1", watering: 0, size: 1}; //1st plant
+const plant1 = {id: "plant0", num: 0, watering: 0, size: 1}; //1st plant
 
 let plantsStorage = [plant1]; //array with all plants objects - 1st flower is already added
 let selectedPlant = plantsStorage[0]; //by deafult 1st plant is selected
-let newID = 2; //starting new IDs from 2
+let newID = 1; //starting new IDs from 1
 let currentPlant = 0; //current plant is 0 in array
-console.log(plant1);
+console.log(plantsStorage);
 //-----------------------------------------------------------
 
 //=============INFO ABOUT GAME - UNHIDE/HIDE ON CLICK========
@@ -34,6 +34,7 @@ function changePlant(plantNum) { //changing current plant selection
   plant.classList.add("selected"); //adds class to current plant
 
   selectedPlant = plantsStorage[plantNum]; //reassigns current selection
+  console.log(selectedPlant);
 }
 
 //behaviour on button 'right' click
@@ -69,18 +70,9 @@ function waterPlant() {
   if (newSize <= 2.5) { //max size is 3rem which is 5 waters
     plantID.style = `font-size: ${selectedPlant.size}rem`;
     selectedPlant.size = selectedPlant.size + 0.5;
-    //currentSize = newSize;
-    console.log(plantID);
-    console.log(newSize);
   }
 
-  else if (newSize > 2.5) {//if overwatered then it dies
-    plantID.innerHTML="💀"; //reassigns flower icon to skull
-    console.log(plantID);
-    console.log(newSize);
-  }
-
-  else return;
+  else plantID.innerHTML="💀"; //reassigns flower icon to skull
 }
 
 water.addEventListener("click", waterPlant); //action on water button click
@@ -100,33 +92,52 @@ function fertPlant() {
   newFlower.innerText = `🌷`; //new flower emoji assign
   garden.appendChild(newFlower); //new flower added to garden
 
-  plantsStorage.push({id: "plant"+newID, watering: 0, size: 1}); //add new flower object to list
+  plantsStorage.push({id: "plant"+newID, num:newID, watering: 0, size: 1}); //add new flower object to list
   newID++; //increase newID value
+  console.log(newFlower);
+  console.log(plantsStorage);
 }
 
 fertilizer.addEventListener("click", fertPlant);//action on fertilizer button click
 //-----------------------------------------------------------
 
-//=============HEAL-------===================================
+//=============HEAL===========================================
+//heal
 function healPlant() {
-  let plantID = document.getElementById(selectedPlant.id); //ID of selected plant
+  let plant = document.getElementById(selectedPlant.id); //selected plant element
   let size = selectedPlant.size;
-
-  console.log(plantID);
-  console.log(size);
 
   if (size > 2.5) {//if overwatered then it dies
     selectedPlant.size = 1;
-    plantID.style = `font-size: 0.5rem`;
-    plantID.innerHTML="🌷"; //reassigns skull icon to flower
-
-    console.log(plantID);
-    console.log(size);
+    plant.style = `font-size: 0.5rem`;
+    plant.innerHTML="🌷"; //reassigns skull icon to flower
   }
 
   else return;
 }
 
-heal.addEventListener("click", healPlant); //action on water button click
+heal.addEventListener("click", healPlant); //action on heal button click
 
+//-----------------------------------------------------------
+
+//=============CUT===========================================
 //cut
+function cutPlant() {
+  let plant = document.getElementById(selectedPlant.id); //flower div
+  let plantNum = selectedPlant.num;
+
+  if (plantNum === 0) {
+    return;
+  }
+
+  else {
+    plantsStorage.splice(plantNum, 1);
+    plant.remove();
+    selectedPlant = plantsStorage[plantNum-1];
+    console.log(selectedPlant);
+    document.getElementById(selectedPlant.id).classList.add("selected");
+  }
+}
+
+cut.addEventListener("click", cutPlant);//action on cut button click
+
